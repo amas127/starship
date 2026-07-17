@@ -85,7 +85,7 @@ starship_precmd() {
     if [[ -n "${STARSHIP_START_TIME-}" ]]; then
         STARSHIP_END_TIME=$(::STARSHIP:: time)
         STARSHIP_DURATION=$((STARSHIP_END_TIME - STARSHIP_START_TIME))
-        ARGS+=("--cmd-duration=\"${STARSHIP_DURATION}\"")
+        ARGS+=("--cmd-duration=${STARSHIP_DURATION}")
         STARSHIP_START_TIME=""
     fi
     PS1="$(::STARSHIP:: prompt "${ARGS[@]}")"
