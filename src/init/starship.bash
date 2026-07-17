@@ -68,6 +68,7 @@ starship_precmd() {
     if [[ -n "${STARSHIP_PROMPT_COMMAND-}" ]]; then
         if ((BASH_VERSINFO[0] > 5 || BASH_VERSINFO[0] == 5 && BASH_VERSINFO[1] >= 1)) && [[ "${STARSHIP_PROMPT_COMMAND@a}" == "a" ]]; then
             # Extended `STARSHIP_PROMPT_COMMAND` array usage
+            # If Bash 5.1+ and `STARSHIP_PROMPT_COMMAND` is non-empty array
             # PR: https://github.com/starship/starship/pull/7603
             \builtin declare __starship_prompt_subcommand
             for __starship_prompt_subcommand in "${STARSHIP_PROMPT_COMMAND[@]}"; do
@@ -138,7 +139,8 @@ else
         # In Bash 5.1+, the type of PROMPT_COMMAND can be 'array'. Old assignment
         # commands will work with the first element instead of the full PROMPT_COMMAND.
         # PR: https://github.com/starship/starship/pull/7603
-        \builtin declare -a STARSHIP_PROMPT_COMMAND=()
+        \builtin declare -a STARSHIP_PROMPT_COMMAND
+        STARSHIP_PROMPT_COMMAND=()
         \builtin declare __prompt_subcommand
         for __prompt_subcommand in "${PROMPT_COMMAND[@]}"; do
             if [[ "${__prompt_subcommand}" == *"starship_precmd"* ]]; then  # If modify this line, modify line 161 as well
