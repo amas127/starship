@@ -170,7 +170,6 @@ else
         fi
         \builtin unset __prompt_subcommand
 
-
         if [[ -v __starship_ifs ]]; then  # Recover IFS
             IFS="${__starship_ifs}"
         fi
